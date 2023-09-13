@@ -491,14 +491,13 @@ La respuesta tiene esta estructura:
 }
 """
 
-def getJSONdata(request, **kwargs):
+def get_data_json(request, **kwargs):
     data_result = []
     
-    datos = Data.objects.all()
-
-
+    datos = Data.objects.filter(value=11.722007800596774)
+    
     for dato in datos:
-
+        data_result["value"] = dato.value
 
     return JsonResponse(data_result)
     
