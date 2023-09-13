@@ -491,15 +491,27 @@ La respuesta tiene esta estructura:
 }
 """
 
-def get_data_json(request, **kwargs):
-    data_result = []
-    
-    datos = Data.objects.filter(value=11.722007800596774)
-    
+def getdataJ(request, **kwargs):
+    data_array = []
+    start = datetime.strptime("2021-06-20 00:00:00","%Y-%m-%d %H:%M:%S")
+    end = datetime.strptime("2021-06-21 00:00:00","%Y-%m-%d %H:%M:%S")
+
+    start_ts = int(datetime.timestamp(start) * 1000000)
+    end_ts = int(datetime.timestamp(end) * 1000000)
+
+    print(start_ts)
+    print(end_ts)
+
+    datos = Data.objects.filter(time__gte=start_ts,time__lte=end_ts)
+
     for dato in datos:
-        data_result["value"] = dato.value
+        data_r ={"value":dato.avg_value, "time":dato.base_time.strftime('%m/%d/%Y %H:%M:%S'),"Last Activity":dato.station.last_activity.strftime('%m/%d/%Y')}
+        data_array.append(data_r)
+
+    data_result = {"data": data_array }
 
     return JsonResponse(data_result)
+    
     
 def get_map_json(request, **kwargs):
     data_result = {}
