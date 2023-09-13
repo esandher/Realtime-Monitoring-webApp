@@ -12,6 +12,7 @@ urlpatterns = [
     path("mapJson/<str:measure>", get_map_json, name="mapJson"),
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
+    path('getdata/',getdataJ, name='getdata'),
     path('historical/data',
          download_csv_data, name='historical-data'),
 ]
