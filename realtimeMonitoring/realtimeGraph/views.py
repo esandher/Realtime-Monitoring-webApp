@@ -516,6 +516,20 @@ La respuesta tiene esta estructura:
 }
 """
 
+def getdataJ(request, **kwargs):
+    data_result = []
+    data_array = []
+
+    datos = Data.objects.filter(time__range=["2021-06-20 00:10:00","2021-06-20 00:12:00"])
+
+    for dato in datos:
+        data_r ={"value":dato.value, "time":dato.time.strftime('%m/%d/%Y %H:%M:%S'),"Last Activity":dato.station.last_activity.strftime('%m/%d/%Y')}
+        data_array.append(data_r)
+
+    data_result = {"data": data_array }
+
+    return JsonResponse(data_result)
+
 
 def get_map_json(request, **kwargs):
     data_result = {}
