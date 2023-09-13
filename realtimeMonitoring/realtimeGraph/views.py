@@ -491,7 +491,17 @@ La respuesta tiene esta estructura:
 }
 """
 
+def getJSONdata(request, **kwargs):
+    data_result = []
+    
+    datos = Data.objects.all()
 
+
+    for dato in datos:
+
+
+    return JsonResponse(data_result)
+    
 def get_map_json(request, **kwargs):
     data_result = {}
 
